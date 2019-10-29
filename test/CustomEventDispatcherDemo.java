@@ -14,25 +14,26 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class CustomEventDispatcherDemo extends Application {
+    /** Custom mouse event for double click. */
     public static final EventType<MouseEvent> MOUSE_DBL_CLICKED = new EventType<>(MouseEvent.ANY, "MOUSE_DBL_CLICKED");
 
     @Override
     public void start(Stage stage) throws Exception {
         Rectangle box1 = new Rectangle(150, 150);
-        box1.setEventDispatcher(new CustomEventDispatcher(box1.getEventDispatcher()));
+
         box1.setStyle("-fx-fill:red;-fx-stroke-width:2px;-fx-stroke:black;");
-        addEventHandlers(box1, "Box-1");
+        addEventHandlers(box1, "Red Box");
 
         Rectangle box2 = new Rectangle(150, 150);
-        box2.setEventDispatcher(new CustomEventDispatcher(box2.getEventDispatcher()));
         box2.setStyle("-fx-fill:yellow;-fx-stroke-width:2px;-fx-stroke:black;");
-        addEventHandlers(box2, "Box-2");
+        addEventHandlers(box2, "Yellow Box");
 
         HBox pane = new HBox(box1, box2);
         pane.setSpacing(10);
         pane.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(new StackPane(pane), 450, 300);
+        scene.setEventDispatcher(new CustomEventDispatcher(scene.getEventDispatcher()));
         stage.setScene(scene);
         stage.show();
     }
@@ -40,26 +41,40 @@ public class CustomEventDispatcherDemo extends Application {
     private void addEventHandlers(Node node, String n) {
         node.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> System.out.println("\n" + n + " mouse pressed filter"));
         node.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> System.out.println("" + n + " mouse pressed handler"));
+        
         node.addEventFilter(MouseEvent.MOUSE_RELEASED, e -> System.out.println("\n" + n + " mouse released filter"));
         node.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> System.out.println("" + n + " mouse released handler"));
+        
         node.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> System.out.println("\n" + n + " mouse clicked filter"));
         node.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> System.out.println("" + n + " mouse clicked handler"));
+        
         node.addEventFilter(MOUSE_DBL_CLICKED, e -> System.out.println("\n" + n + " mouse double clicked filter"));
         node.addEventHandler(MOUSE_DBL_CLICKED, e -> System.out.println(n + " mouse double clicked handler"));
     }
 
+    /**
+     * Custom EventDispatcher to differentiate mouse clicked event from mouse pressed-released. Also to differentiate
+     * from single click with double click.
+     */
     class CustomEventDispatcher implements EventDispatcher {
-        private static final long PRESS_DELAY = 300;
 
-        private static final long DOUBLE_CLICK_DELAY = 250;
+        /** Default delay to fire a press event in milliseconds. */
+        private static final long DEFAULT_PRESS_DELAY = 300;
 
+        /** Default delay to fire a double click event in milliseconds. */
+        private static final long DEFAULT_DOUBLE_CLICK_DELAY = 250;
+
+        /** Default event dispatcher of a node. */
         private final EventDispatcher defaultEventDispatcher;
 
+        /** Timeline for dispatching mouse pressed event. */
         private Timeline pressedTimeline;
 
+        /** Timeline for dispatching mouse clicked event. */
         private Timeline clickedTimeline;
 
-        private boolean isClickedEvent;
+        /** Specified whether to process the clicked event or not. */
+        private boolean processClickedEvent;
 
         /**
          * Constructor.
@@ -78,13 +93,13 @@ public class CustomEventDispatcherDemo extends Application {
                     || type == MouseEvent.MOUSE_CLICKED) {
                 final MouseEvent mouseEvent = (MouseEvent) event;
                 final EventTarget eventTarget = event.getTarget();
-                Event returnEvent = null;
+                final Event returnEvent;
                 if (type == MouseEvent.MOUSE_PRESSED) {
-                    returnEvent = processMouseEntered(mouseEvent, eventTarget);
+                    returnEvent = dispatchMousePressedEvent(mouseEvent, eventTarget);
                 } else if (type == MouseEvent.MOUSE_RELEASED) {
-                    returnEvent = processMouseReleased(mouseEvent);
-                } else if (type == MouseEvent.MOUSE_CLICKED) {
-                    returnEvent = processMouseClicked(mouseEvent, eventTarget);
+                    returnEvent = dispatchMouseReleasedEvent(mouseEvent);
+                } else {
+                    returnEvent = dispatchMouseClickedEvent(mouseEvent, eventTarget);
                 }
 
                 if (returnEvent != null) {
@@ -97,7 +112,7 @@ public class CustomEventDispatcherDemo extends Application {
         /**
          * Creates a copy of the provided mouse event type with the mouse event.
          *
-         * @param e         MouseEvent
+         * @param e MouseEvent
          * @param eventType Event type that need to be created
          * @return New mouse event instance
          */
@@ -110,12 +125,14 @@ public class CustomEventDispatcherDemo extends Application {
         }
 
         /**
-         * @param mouseEvent
-         * @param eventTarget
-         * @return
+         * Dispatches the mouse clicked event to differentiate from double click with single click.
+         *
+         * @param mouseEvent MouseEvent
+         * @param eventTarget Target node of the mouse event
+         * @return Event
          */
-        private Event processMouseClicked(final MouseEvent mouseEvent, final EventTarget eventTarget) {
-            if (!isClickedEvent) {
+        private Event dispatchMouseClickedEvent(final MouseEvent mouseEvent, final EventTarget eventTarget) {
+            if (!processClickedEvent) {
                 return mouseEvent;
             }
             if (mouseEvent.getClickCount() > 1) {
@@ -129,7 +146,7 @@ public class CustomEventDispatcherDemo extends Application {
             }
             if (clickedTimeline == null) {
                 final MouseEvent clickedEvent = copy(mouseEvent, mouseEvent.getEventType());
-                clickedTimeline = new Timeline(new KeyFrame(Duration.millis(DOUBLE_CLICK_DELAY), e -> {
+                clickedTimeline = new Timeline(new KeyFrame(Duration.millis(DEFAULT_DOUBLE_CLICK_DELAY), e -> {
                     Event.fireEvent(eventTarget, clickedEvent);
                     clickedTimeline = null;
                 }));
@@ -140,18 +157,20 @@ public class CustomEventDispatcherDemo extends Application {
         }
 
         /**
-         * @param mouseEvent
-         * @param eventTarget
-         * @return
+         * Dispatches the mouse pressed event to differentiate from mouse clicked.
+         *
+         * @param mouseEvent MouseEvent
+         * @param eventTarget Target node of the mouse event
+         * @return Event
          */
-        private Event processMouseEntered(final MouseEvent mouseEvent, final EventTarget eventTarget) {
+        private Event dispatchMousePressedEvent(final MouseEvent mouseEvent, final EventTarget eventTarget) {
             if (clickedTimeline != null && clickedTimeline.getStatus() == Animation.Status.RUNNING) {
                 return mouseEvent;
             }
-            isClickedEvent = false;
+            processClickedEvent = false;
             if (pressedTimeline == null) {
                 final MouseEvent pressedEvent = copy(mouseEvent, mouseEvent.getEventType());
-                pressedTimeline = new Timeline(new KeyFrame(Duration.millis(PRESS_DELAY), e -> {
+                pressedTimeline = new Timeline(new KeyFrame(Duration.millis(DEFAULT_PRESS_DELAY), e -> {
                     Event.fireEvent(eventTarget, pressedEvent);
                     pressedTimeline = null;
                 }));
@@ -162,15 +181,17 @@ public class CustomEventDispatcherDemo extends Application {
         }
 
         /**
-         * @param mouseEvent
-         * @return
+         * Dispatches the mouse released event to differentiate from mouse clicked.
+         *
+         * @param mouseEvent MouseEvent
+         * @return Event
          */
-        private Event processMouseReleased(final MouseEvent mouseEvent) {
+        private Event dispatchMouseReleasedEvent(final MouseEvent mouseEvent) {
             if (clickedTimeline != null && clickedTimeline.getStatus() == Animation.Status.RUNNING) {
                 return mouseEvent;
             }
             if (pressedTimeline != null) {
-                isClickedEvent = true;
+                processClickedEvent = true;
                 pressedTimeline.stop();
                 pressedTimeline = null;
                 return mouseEvent;
