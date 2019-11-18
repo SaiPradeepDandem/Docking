@@ -1,0 +1,94 @@
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.SceneAntialiasing;
+import javafx.scene.paint.Paint;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Custom scene to include extra features to default scene.
+ */
+public class XfeScene extends Scene {
+    /**
+     * Handlers to be executed when the window is hiding.
+     */
+    private final List<Runnable> hidingHandlers = new ArrayList<>();
+
+    /**
+     * Handlers to be executed when the window is hidden.
+     */
+    private final List<Runnable> hiddenHandlers = new ArrayList<>();
+
+    public XfeScene(Parent root) {
+        super(root);
+    }
+
+    public XfeScene(Parent root, double width, double height) {
+        super(root, width, height);
+    }
+
+    public XfeScene(Parent root, Paint fill) {
+        super(root, fill);
+    }
+
+    public XfeScene(Parent root, double width, double height, Paint fill) {
+        super(root, width, height, fill);
+    }
+
+    public XfeScene(Parent root, double width, double height, boolean depthBuffer) {
+        super(root, width, height, depthBuffer);
+    }
+
+    public XfeScene(Parent root, double width, double height, boolean depthBuffer, SceneAntialiasing antiAliasing) {
+        super(root, width, height, depthBuffer, antiAliasing);
+    }
+
+    /**
+     * Adds the handler to be executed before the window is closed.
+     * @param handler Runnable to execute.
+     */
+    public void addHidingHandler(Runnable handler){
+        hidingHandlers.add(handler);
+    }
+
+    /**
+     * Removes the handler.
+     * @param handler Runnable to execute
+     */
+    public void removeHidingHandler(Runnable handler){
+        hidingHandlers.remove(handler);
+    }
+
+    /**
+     * All the hiding handlers.
+     * @return List of hiding handlers
+     */
+    public List<Runnable> getHidingHandlers() {
+        return hidingHandlers;
+    }
+
+    /**
+     * Adds the handler to be executed after the window is closed.
+     * @param handler Runnable to execute.
+     */
+    public void addHiddenHandler(Runnable handler){
+        hiddenHandlers.add(handler);
+    }
+
+    /**
+     * Removes the handler.
+     * @param handler Runnable to execute
+     */
+    public void removeHiddenHandler(Runnable handler){
+        hiddenHandlers.remove(handler);
+    }
+
+    /**
+     * All the hidden handlers.
+     * @return List of hidden handlers
+     */
+    public List<Runnable> getHiddenHandlers() {
+        return hiddenHandlers;
+    }
+}
