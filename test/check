@@ -1,0 +1,392 @@
+protected Glyph getPlus() {
+         if (plus == null) {
+            plus = new Glyph("FontAwesome", "PLUS_SQUARE");
+            plus.setFontSize(glyphFontSizeMap.get(getZoomLevel().get()));
+            plus.getStyleClass().add("header-icon");
+         }
+         return plus;
+      }
+      
+      
+      private static Map<Integer, Double> glyphFontSizeMap = new HashMap<>();
+
+   static {
+      glyphFontSizeMap.put(-4, 6d); // zoomLevel, size in PX (~6pt)
+      glyphFontSizeMap.put(-3, 8d); // (~7pt)
+      glyphFontSizeMap.put(-2, 10d);// (~8pt)
+      glyphFontSizeMap.put(-1, 11d);      // (~9pt)
+      glyphFontSizeMap.put(0, 13.333333); // (~10pt)
+      glyphFontSizeMap.put(1, 14.666667); // (~11pt)
+      glyphFontSizeMap.put(2, 16d);       // (~12pt)
+      glyphFontSizeMap.put(3, 17.333333); // (~13pt)
+      glyphFontSizeMap.put(4, 18.666667); // (~14pt)
+      glyphFontSizeMap.put(5, 20d);       // (~15pt)
+      glyphFontSizeMap.put(6, 21.333333); // (~16pt)
+      glyphFontSizeMap.put(7, 22.666667); // (~17pt)
+      glyphFontSizeMap.put(8, 24d);       // (~18pt)
+      glyphFontSizeMap.put(9, 25.333333); // (~19pt)
+      glyphFontSizeMap.put(10, 26.666667);// (~20pt)
+   }
+
+
+.instruments-tab-pane-zoom1.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,
+.instruments-tab-pane-zoom1.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,
+.instruments-tab-pane-zoom1.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,
+.instruments-tab-pane-zoom1.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,
+.instruments-tab-pane-zoom1.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .root{
+    -fx-cell-size: 20px;
+}
+.instruments-tab-pane-zoom1.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,
+.instruments-tab-pane-zoom1.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,
+.instruments-tab-pane-zoom1.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,
+.instruments-tab-pane-zoom1.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field,
+.instruments-tab-pane-zoom1.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,
+.instruments-tab-pane-zoom1.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,
+.instruments-tab-pane-zoom1.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,
+.instruments-tab-pane-zoom1.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field{
+    -fx-font-size: 11pt;
+}
+.instruments-tab-pane-zoom1.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button,
+.instruments-tab-pane-zoom1.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button {
+    -xfe-icon-size: 18px; /* cellSize - 2 */
+    -fx-min-height:-xfe-icon-size;
+    -fx-min-width: -xfe-icon-size;
+    -fx-max-height: -xfe-icon-size;
+    -fx-max-width: -xfe-icon-size;
+}
+.instruments-tab-pane-zoom1 > .table-view .action-column,
+.instruments-tab-pane-zoom1.table-view .action-column{
+    -fx-pref-width: 20px; /* cellSize + 2 */
+    -fx-pref-height: 20px;
+    -fx-max-height: 20px;
+}
+
+.instruments-tab-pane-zoom2.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,
+.instruments-tab-pane-zoom2.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,
+.instruments-tab-pane-zoom2.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,
+.instruments-tab-pane-zoom2.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,
+.instruments-tab-pane-zoom2.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .root{
+    -fx-cell-size: 22px;
+}
+.instruments-tab-pane-zoom2.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,
+.instruments-tab-pane-zoom2.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,
+.instruments-tab-pane-zoom2.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,
+.instruments-tab-pane-zoom2.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field,
+.instruments-tab-pane-zoom2.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,
+.instruments-tab-pane-zoom2.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,
+.instruments-tab-pane-zoom2.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,
+.instruments-tab-pane-zoom2.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field{
+    -fx-font-size: 12pt;
+}
+.instruments-tab-pane-zoom2.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button,
+.instruments-tab-pane-zoom2.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button {
+    -xfe-icon-size: 20px; /* cellSize - 2 */
+    -fx-min-height:-xfe-icon-size;
+    -fx-min-width: -xfe-icon-size;
+    -fx-max-height: -xfe-icon-size;
+    -fx-max-width: -xfe-icon-size;
+}
+.instruments-tab-pane-zoom2 > .table-view .action-column,
+.instruments-tab-pane-zoom2.table-view .action-column{
+    -fx-pref-width:22px; /* cellSize + 2 */
+    -fx-pref-height: 22px;
+    -fx-max-height:22px;
+}
+
+.instruments-tab-pane-zoom3.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,
+.instruments-tab-pane-zoom3.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,
+.instruments-tab-pane-zoom3.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,
+.instruments-tab-pane-zoom3.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,
+.instruments-tab-pane-zoom3.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .root{
+    -fx-cell-size: 24px;
+}
+.instruments-tab-pane-zoom3.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,
+.instruments-tab-pane-zoom3.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,
+.instruments-tab-pane-zoom3.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,
+.instruments-tab-pane-zoom3.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field,
+.instruments-tab-pane-zoom3.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,
+.instruments-tab-pane-zoom3.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,
+.instruments-tab-pane-zoom3.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,
+.instruments-tab-pane-zoom3.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field{
+    -fx-font-size: 13pt;
+}
+.instruments-tab-pane-zoom3.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button,
+.instruments-tab-pane-zoom3.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button {
+    -xfe-icon-size: 22px; /* cellSize - 2 */
+    -fx-min-height:-xfe-icon-size;
+    -fx-min-width: -xfe-icon-size;
+    -fx-max-height: -xfe-icon-size;
+    -fx-max-width: -xfe-icon-size;
+}
+.instruments-tab-pane-zoom3 > .table-view .action-column,
+.instruments-tab-pane-zoom3.table-view .action-column{
+    -fx-pref-width:24px; /* cellSize + 2 */
+    -fx-pref-height: 24px;
+    -fx-max-height:24px;
+}
+
+.instruments-tab-pane-zoom4.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,
+.instruments-tab-pane-zoom4.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,
+.instruments-tab-pane-zoom4.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,
+.instruments-tab-pane-zoom4.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,
+.instruments-tab-pane-zoom4.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .root{
+    -fx-cell-size: 26px;
+}
+.instruments-tab-pane-zoom4.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,
+.instruments-tab-pane-zoom4.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,
+.instruments-tab-pane-zoom4.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,
+.instruments-tab-pane-zoom4.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field,
+.instruments-tab-pane-zoom4.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,
+.instruments-tab-pane-zoom4.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,
+.instruments-tab-pane-zoom4.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,
+.instruments-tab-pane-zoom4.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field{
+    -fx-font-size: 14pt;
+}
+.instruments-tab-pane-zoom4.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button,
+.instruments-tab-pane-zoom4.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button {
+    -xfe-icon-size: 24px; /* cellSize - 2 */
+    -fx-min-height:-xfe-icon-size;
+    -fx-min-width: -xfe-icon-size;
+    -fx-max-height: -xfe-icon-size;
+    -fx-max-width: -xfe-icon-size;
+}
+.instruments-tab-pane-zoom4 > .table-view .action-column,
+.instruments-tab-pane-zoom4.table-view .action-column{
+    -fx-pref-width:26px; /* cellSize + 2 */
+    -fx-pref-height: 26px;
+    -fx-max-height:26px;
+}
+
+.instruments-tab-pane-zoom5.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,
+.instruments-tab-pane-zoom5.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,
+.instruments-tab-pane-zoom5.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,
+.instruments-tab-pane-zoom5.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,
+.instruments-tab-pane-zoom5.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .root{
+    -fx-cell-size: 28px;
+}
+.instruments-tab-pane-zoom5.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,
+.instruments-tab-pane-zoom5.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,
+.instruments-tab-pane-zoom5.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,
+.instruments-tab-pane-zoom5.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field,
+.instruments-tab-pane-zoom5.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,
+.instruments-tab-pane-zoom5.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,
+.instruments-tab-pane-zoom5.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,
+.instruments-tab-pane-zoom5.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field{
+    -fx-font-size: 15pt;
+}
+.instruments-tab-pane-zoom5.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button,
+.instruments-tab-pane-zoom5.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button {
+    -xfe-icon-size: 26px; /* cellSize - 2 */
+    -fx-min-height:-xfe-icon-size;
+    -fx-min-width: -xfe-icon-size;
+    -fx-max-height: -xfe-icon-size;
+    -fx-max-width: -xfe-icon-size;
+}
+.instruments-tab-pane-zoom5 > .table-view .action-column,
+.instruments-tab-pane-zoom5.table-view .action-column{
+    -fx-pref-width:28px; /* cellSize + 2 */
+    -fx-pref-height: 28px;
+    -fx-max-height:28px;
+}
+
+.instruments-tab-pane-zoom6.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,
+.instruments-tab-pane-zoom6.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,
+.instruments-tab-pane-zoom6.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,
+.instruments-tab-pane-zoom6.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,
+.instruments-tab-pane-zoom6.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .root{
+    -fx-cell-size: 30px;
+}
+.instruments-tab-pane-zoom6.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,
+.instruments-tab-pane-zoom6.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,
+.instruments-tab-pane-zoom6.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,
+.instruments-tab-pane-zoom6.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field,
+.instruments-tab-pane-zoom6.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,
+.instruments-tab-pane-zoom6.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,
+.instruments-tab-pane-zoom6.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,
+.instruments-tab-pane-zoom6.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field{
+    -fx-font-size: 16pt;
+}
+.instruments-tab-pane-zoom6.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button,
+.instruments-tab-pane-zoom6.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button {
+    -xfe-icon-size: 28px; /* cellSize - 2 */
+    -fx-min-height:-xfe-icon-size;
+    -fx-min-width: -xfe-icon-size;
+    -fx-max-height: -xfe-icon-size;
+    -fx-max-width: -xfe-icon-size;
+}
+.instruments-tab-pane-zoom6 > .table-view .action-column,
+.instruments-tab-pane-zoom6.table-view .action-column{
+    -fx-pref-width:30px; /* cellSize + 2 */
+    -fx-pref-height: 30px;
+    -fx-max-height:30px;
+}
+
+.instruments-tab-pane-zoom7.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,
+.instruments-tab-pane-zoom7.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,
+.instruments-tab-pane-zoom7.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,
+.instruments-tab-pane-zoom7.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,
+.instruments-tab-pane-zoom7.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .root{
+    -fx-cell-size: 32px;
+}
+.instruments-tab-pane-zoom7.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,
+.instruments-tab-pane-zoom7.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,
+.instruments-tab-pane-zoom7.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,
+.instruments-tab-pane-zoom7.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field,
+.instruments-tab-pane-zoom7.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,
+.instruments-tab-pane-zoom7.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,
+.instruments-tab-pane-zoom7.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,
+.instruments-tab-pane-zoom7.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field{
+    -fx-font-size: 17pt;
+}
+.instruments-tab-pane-zoom7.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button,
+.instruments-tab-pane-zoom7.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button {
+    -xfe-icon-size: 30px; /* cellSize - 2 */
+    -fx-min-height:-xfe-icon-size;
+    -fx-min-width: -xfe-icon-size;
+    -fx-max-height: -xfe-icon-size;
+    -fx-max-width: -xfe-icon-size;
+}
+.instruments-tab-pane-zoom7 > .table-view .action-column,
+.instruments-tab-pane-zoom7.table-view .action-column{
+    -fx-pref-width:32px; /* cellSize + 2 */
+    -fx-pref-height: 32px;
+    -fx-max-height:32px;
+}
+
+.instruments-tab-pane-zoom8.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,
+.instruments-tab-pane-zoom8.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,
+.instruments-tab-pane-zoom8.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,
+.instruments-tab-pane-zoom8.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,
+.instruments-tab-pane-zoom8.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .root{
+    -fx-cell-size: 34px;
+}
+.instruments-tab-pane-zoom8.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,
+.instruments-tab-pane-zoom8.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,
+.instruments-tab-pane-zoom8.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,
+.instruments-tab-pane-zoom8.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field,
+.instruments-tab-pane-zoom8.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,
+.instruments-tab-pane-zoom8.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,
+.instruments-tab-pane-zoom8.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,
+.instruments-tab-pane-zoom8.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field{
+    -fx-font-size: 18pt;
+}
+.instruments-tab-pane-zoom8.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button,
+.instruments-tab-pane-zoom8.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button {
+    -xfe-icon-size: 32px; /* cellSize - 2 */
+    -fx-min-height:-xfe-icon-size;
+    -fx-min-width: -xfe-icon-size;
+    -fx-max-height: -xfe-icon-size;
+    -fx-max-width: -xfe-icon-size;
+}
+.instruments-tab-pane-zoom8 > .table-view .action-column,
+.instruments-tab-pane-zoom8.table-view .action-column{
+    -fx-pref-width:34px; /* cellSize + 2 */
+    -fx-pref-height: 34px;
+    -fx-max-height:34px;
+}
+
+.instruments-tab-pane-zoom9.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,
+.instruments-tab-pane-zoom9.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,
+.instruments-tab-pane-zoom9.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,
+.instruments-tab-pane-zoom9.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,
+.instruments-tab-pane-zoom9.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .root{
+    -fx-cell-size: 36px;
+}
+.instruments-tab-pane-zoom9.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,
+.instruments-tab-pane-zoom9.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,
+.instruments-tab-pane-zoom9.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,
+.instruments-tab-pane-zoom9.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field,
+.instruments-tab-pane-zoom9.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,
+.instruments-tab-pane-zoom9.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,
+.instruments-tab-pane-zoom9.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,
+.instruments-tab-pane-zoom9.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field{
+    -fx-font-size: 19pt;
+}
+.instruments-tab-pane-zoom9.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button,
+.instruments-tab-pane-zoom9.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button {
+    -xfe-icon-size: 34px; /* cellSize - 2 */
+    -fx-min-height:-xfe-icon-size;
+    -fx-min-width: -xfe-icon-size;
+    -fx-max-height: -xfe-icon-size;
+    -fx-max-width: -xfe-icon-size;
+}
+.instruments-tab-pane-zoom9 > .table-view .action-column,
+.instruments-tab-pane-zoom9.table-view .action-column{
+    -fx-pref-width:36px; /* cellSize + 2 */
+    -fx-pref-height: 36px;
+    -fx-max-height:36px;
+}
+
+.instruments-tab-pane-zoom10.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,
+.instruments-tab-pane-zoom10.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,
+.instruments-tab-pane-zoom10.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,
+.instruments-tab-pane-zoom10.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,
+.instruments-tab-pane-zoom10.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .root{
+    -fx-cell-size: 38px;
+}
+.instruments-tab-pane-zoom10.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,
+.instruments-tab-pane-zoom10.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,
+.instruments-tab-pane-zoom10.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,
+.instruments-tab-pane-zoom10.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field,
+.instruments-tab-pane-zoom10.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,
+.instruments-tab-pane-zoom10.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,
+.instruments-tab-pane-zoom10.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,
+.instruments-tab-pane-zoom10.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field{
+    -fx-font-size: 20pt;
+}
+.instruments-tab-pane-zoom10.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button,
+.instruments-tab-pane-zoom10.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button {
+    -xfe-icon-size: 36px; /* cellSize - 2 */
+    -fx-min-height:-xfe-icon-size;
+    -fx-min-width: -xfe-icon-size;
+    -fx-max-height: -xfe-icon-size;
+    -fx-max-width: -xfe-icon-size;
+}
+.instruments-tab-pane-zoom10 > .table-view .action-column,
+.instruments-tab-pane-zoom10.table-view .action-column{
+    -fx-pref-width:38px; /* cellSize + 2 */
+    -fx-pref-height: 38px;
+    -fx-max-height:38px;
+}
+
+
+public class CssGenerator {
+
+    public static void main(String... a) {
+        int fontSize = 6;
+        int cellSize = 10;
+        for (int zoom = -4; zoom < 11; zoom++) {
+            System.out.println(".instruments-tab-pane-zoom" + zoom + " > .tab-content-area > .table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,");
+            System.out.println(".instruments-tab-pane-zoom" + zoom + " > .table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell,");
+            System.out.println(".instruments-tab-pane-zoom" + zoom + " > .tab-content-area > .table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell,");
+            System.out.println(".instruments-tab-pane-zoom" + zoom + " > .table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell {");
+            //System.out.println("    -fx-font-size: " + fontSize + "pt;");
+            System.out.println("    -fx-cell-size: " + (zoom < 0 ? (cellSize + 1) : cellSize) + "px;");
+            System.out.println("}");
+            System.out.println(".instruments-tab-pane-zoom" + zoom + " > .table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,");
+            System.out.println(".instruments-tab-pane-zoom" + zoom + " > .table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,");
+            System.out.println(".instruments-tab-pane-zoom" + zoom + " > .table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,");
+            System.out.println(".instruments-tab-pane-zoom" + zoom + " > .table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field,");
+            System.out.println(".instruments-tab-pane-zoom" + zoom + " > .tab-content-area > .table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text,");
+            System.out.println(".instruments-tab-pane-zoom" + zoom + " > .tab-content-area > .table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .label,");
+            System.out.println(".instruments-tab-pane-zoom" + zoom + " > .tab-content-area > .table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .wrapper > .label,");
+            System.out.println(".instruments-tab-pane-zoom" + zoom + " > .tab-content-area > .table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell > .text-field{");
+            System.out.println("    -fx-font-size: " + fontSize + "pt;");
+            System.out.println("}");
+
+
+            System.out.println(".instruments-tab-pane-zoom" + zoom + " > .table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button,");
+            System.out.println(".instruments-tab-pane-zoom" + zoom + " > .tab-content-area > .table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell .xfe-cell-button {");
+            System.out.println("    -xfe-icon-size: " + (zoom < 0 ? (cellSize - 3) : (cellSize - 2)) + "px; /* "+(zoom < 0 ? "cellSize - 3" : "cellSize - 2")+" */");
+            System.out.println("}");
+            System.out.println(".instruments-tab-pane-zoom" + zoom + " > .table-view .action-column,");
+            System.out.println(".instruments-tab-pane-zoom" + zoom + " > .tab-content-area > .table-view .action-column{");
+            System.out.println("    -fx-pref-width:" + (cellSize + 2) + "px; /* cellSize + 2 */");
+            System.out.println("}");
+            System.out.println("");
+            fontSize++;
+            cellSize = cellSize + 2;
+        }
+
+    }
+}
