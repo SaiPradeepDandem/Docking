@@ -1,21 +1,23 @@
+package com.sai.javafx.independentwindow.workspace;
+
+import com.sai.javafx.docking.window.XfeWindowManager;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 
 public class IndependentWindowArgs {
    private String id;
    private Window owner;
-   private Node node;
+   private IndependentWindowContent content;
    private String title;
    private XfeWindowManager xfeWindowManager;
    private Rectangle2D bounds;
    private EventHandler<WindowEvent> hidingHandler;
 
-   public IndependentWindowArgs(String id, Node node, String title, XfeWindowManager xfeWindowManager,EventHandler<WindowEvent> hidingHandler, Rectangle2D bounds) {
+   public IndependentWindowArgs(String id, IndependentWindowContent content, String title, XfeWindowManager xfeWindowManager,EventHandler<WindowEvent> hidingHandler, Rectangle2D bounds) {
       this.id = id;
-      this.node = node;
+      this.content = content;
       this.title = title;
       this.xfeWindowManager = xfeWindowManager;
       this.hidingHandler = hidingHandler;
@@ -34,8 +36,8 @@ public class IndependentWindowArgs {
       return owner;
    }
 
-   public Node getNode() {
-      return node;
+   public IndependentWindowContent getContent() {
+      return content;
    }
 
    public String getTitle() {
