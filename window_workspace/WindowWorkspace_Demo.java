@@ -17,7 +17,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.nio.file.Path;
 import java.security.SecureRandom;
 import java.util.*;
 
@@ -96,13 +95,10 @@ public class WindowWorkspace_Demo extends Application implements XfeWindowManage
     private void toggleWorkspaceToUser(User user) {
         openedWindows.forEach((key, window) -> window.close());
         openedWindows.clear();
-        List<Path> files = WorkspaceUtil.getAllWorkspaceFiles(user.toString());
-        if (!files.isEmpty()) {
-            files.forEach(filePath -> {
-                IndependentWindowWorkspace prop = WorkspaceUtil.read(filePath);
-                System.out.println(prop);
-            });
-        }
+        Map<String, IndependentWindowWorkspace> windowMap = WorkspaceUtil.read(user.toString());
+        windowMap.forEach((id, obj) -> {
+            System.out.println(id + "  --  " + obj);
+        });
     }
 
     private void openWindow(WinType type, User user) {
@@ -119,9 +115,8 @@ public class WindowWorkspace_Demo extends Application implements XfeWindowManage
             // Read/Create workspace file
             final String userName = user.toString();
             final String id = type.toString();
-            final Path filePath = WorkspaceUtil.getFilePath(userName, id);
-            final IndependentWindowWorkspace workspace;
-            if (!filePath.toFile().exists()) {
+            IndependentWindowWorkspace workspace = WorkspaceUtil.read(userName, id);
+            if (workspace == null) {
                 workspace = new IndependentWindowWorkspace();
                 workspace.setId(type.toString());
                 workspace.setUserName(user.toString());
@@ -166,8 +161,9 @@ public class WindowWorkspace_Demo extends Application implements XfeWindowManage
                 table.getColumns().forEach(column -> {
                     final IndependentWindowProperty colProperty = new IndependentWindowProperty("column", column.getText());
                     final List<IndependentWindowPropertyAttribute> attributes = new ArrayList<>();
-                    attributes.add(new IndependentWindowPropertyAttribute("width", column.getWidth() + ""));
-                    attributes.add(new IndependentWindowPropertyAttribute("visible", column.isVisible() + ""));
+                    attributes.add(new IndependentWindowPropertyAttribute("width", column.getWidth()));
+                    attributes.add(new IndependentWindowPropertyAttribute("visible", column.isVisible()));
+                    attributes.add(new IndependentWindowPropertyAttribute("watchList", new SomeSerializableObj("Hellow", 230.0, 45, true)));
                     colProperty.setAttributes(attributes);
                     properties.add(colProperty);
                 });
@@ -176,7 +172,7 @@ public class WindowWorkspace_Demo extends Application implements XfeWindowManage
 
             @Override
             protected void applyContentProperties() {
-                if (workspace != null && workspace.getProperties()!=null) {
+                if (workspace != null && workspace.getProperties() != null) {
                     workspace.getProperties().forEach(prop -> {
                         if (prop.getType().equals("column")) {
                             Optional<TableColumn<K, ?>> column = table.getColumns().stream().filter(col -> col.getText().equals(prop.getName())).findFirst();
@@ -184,10 +180,10 @@ public class WindowWorkspace_Demo extends Application implements XfeWindowManage
                                     prop.getAttributes().forEach(attr -> {
                                         switch (attr.getName()) {
                                             case "width":
-                                                col.setPrefWidth(Double.parseDouble(attr.getValue()));
+                                                col.setPrefWidth((double) attr.getValue());
                                                 break;
                                             case "visible":
-                                                col.setVisible(Boolean.parseBoolean(attr.getValue()));
+                                                col.setVisible((boolean) attr.getValue());
                                                 break;
                                         }
                                     })
@@ -206,7 +202,7 @@ public class WindowWorkspace_Demo extends Application implements XfeWindowManage
                 tl.play();
             }
         };
-        table.getColumns().forEach(column->{
+        table.getColumns().forEach(column -> {
             column.widthProperty().addListener(listener);
             column.visibleProperty().addListener(listener);
         });
