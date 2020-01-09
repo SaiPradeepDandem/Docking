@@ -1,13 +1,10 @@
 package com.sai.javafx.independentwindow.workspace;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.util.List;
 
-@XmlRootElement(name = "IndependentWindow")
-public class IndependentWindowWorkspace {
+public class IndependentWindowWorkspace  implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String id;
     private String userName;
     private boolean showing;
@@ -17,8 +14,9 @@ public class IndependentWindowWorkspace {
     private double width;
     private double height;
     private List<IndependentWindowProperty> properties;
+    private List<IndependentWindowPropertyAttribute> attributes;
 
-    @XmlAttribute
+
     public String getId() {
         return id;
     }
@@ -27,7 +25,6 @@ public class IndependentWindowWorkspace {
         this.id = id;
     }
 
-    @XmlAttribute
     public String getUserName() {
         return userName;
     }
@@ -36,8 +33,7 @@ public class IndependentWindowWorkspace {
         this.userName = userName;
     }
 
-    @XmlAttribute
-    public boolean isShowing() {
+     public boolean isShowing() {
         return showing;
     }
 
@@ -45,7 +41,6 @@ public class IndependentWindowWorkspace {
         this.showing = showing;
     }
 
-    @XmlAttribute
     public String getState() {
         return state;
     }
@@ -54,8 +49,7 @@ public class IndependentWindowWorkspace {
         this.state = state;
     }
 
-    @XmlAttribute
-    public double getX() {
+     public double getX() {
         return x;
     }
 
@@ -63,7 +57,6 @@ public class IndependentWindowWorkspace {
         this.x = x;
     }
 
-    @XmlAttribute
     public double getY() {
         return y;
     }
@@ -72,7 +65,6 @@ public class IndependentWindowWorkspace {
         this.y = y;
     }
 
-    @XmlAttribute
     public double getWidth() {
         return width;
     }
@@ -81,7 +73,6 @@ public class IndependentWindowWorkspace {
         this.width = width;
     }
 
-    @XmlAttribute
     public double getHeight() {
         return height;
     }
@@ -90,13 +81,19 @@ public class IndependentWindowWorkspace {
         this.height = height;
     }
 
-    @XmlElementWrapper(name = "properties")
-    @XmlElement(name = "property")
     public List<IndependentWindowProperty> getProperties() {
         return properties;
     }
 
     public void setProperties(List<IndependentWindowProperty> properties) {
         this.properties = properties;
+    }
+
+    public List<IndependentWindowPropertyAttribute> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(List<IndependentWindowPropertyAttribute> attributes) {
+        this.attributes = attributes;
     }
 }
