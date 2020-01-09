@@ -1,11 +1,10 @@
 package com.sai.javafx.independentwindow.workspace;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
+import java.io.Serializable;
 import java.util.List;
 
-public class IndependentWindowProperty {
+public class IndependentWindowProperty  implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String type;
     private String name;
     private List<IndependentWindowPropertyAttribute> attributes;
@@ -19,7 +18,6 @@ public class IndependentWindowProperty {
         this.name = name;
     }
 
-    @XmlAttribute
     public String getType() {
         return type;
     }
@@ -28,7 +26,6 @@ public class IndependentWindowProperty {
         this.type = type;
     }
 
-    @XmlAttribute
     public String getName() {
         return name;
     }
@@ -37,8 +34,6 @@ public class IndependentWindowProperty {
         this.name = name;
     }
 
-    @XmlElementWrapper(name = "attributes")
-    @XmlElement(name = "attribute")
     public List<IndependentWindowPropertyAttribute> getAttributes() {
         return attributes;
     }
