@@ -1,86 +1,27 @@
-package com.test.javafx.stage.fix;
+package com.nomx.javafxlabs.constants;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.application.Application;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.ActionEvent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.util.Duration;
+import java.awt.*;
+import java.awt.event.InputEvent;
+import java.util.Date;
 
-public class Testwindow extends Application {
-    Stage stage2, stage1;
-    Scene scene1, scene2;
-    StackPane root1;
-    VBox root2;
-    Button btn1;
-    IntegerProperty xx = new SimpleIntegerProperty(0);
-    IntegerProperty xx2 = new SimpleIntegerProperty(0);
-    
-    @Override
-    public void start(Stage primaryStage) {
-        stage1 = primaryStage;
-        btn1 = new Button();
-        btn1.setText("Trigger second screen");
-        btn1.setOnAction((ActionEvent event) -> {
-            createStage2(primaryStage);
-            System.out.println("Hello World!");
-        });
-
-        root1 = new StackPane();
-        root1.getChildren().add(btn1);
-        scene1 = new Scene(root1, 300, 250);
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene1);
-        primaryStage.show();
+public class RobotDemo {
+    public static void main(String... a) throws AWTException {
+        long minute = 60000;
+        long noOfMinutes = 300;//600;
+        Robot r = new Robot();
+        long time = System.currentTimeMillis();
+        long endTime = time+ (noOfMinutes * minute);
+        while(System.currentTimeMillis()<endTime) {
+            r.mouseMove(50,250);
+            r.delay(15000);
+            r.mouseMove(200,200);
+            r.delay(15000);
+        }
+        r.mouseMove(50,250);
+        //r.mouseMove(-1900,200);
+        r.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+        r.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        System.out.println("Stopped at "+new Date());
     }
-
-    private void createStage2(Stage keepFocusStage) {
-        root2 = new VBox(10);
-        TextArea myTA = new TextArea();
-        Button myBtn = new Button("hello");
-        
-        root2.getChildren().addAll(myTA, myBtn);
-        myBtn.requestFocus();
-        
-        scene2 = new Scene(root2, 300, 250);
-        stage2 =  new Stage();
-        stage2.setTitle("Hello World 2 !");
-        stage2.setScene(scene2);
-        stage2.setX(100);
-        stage2.setY(220);
-        stage2.focusedProperty().addListener((obs,old,focus)->{
-            if(focus) {
-                System.out.println("");
-            }
-        });
-        Timeline x = new Timeline(new KeyFrame(Duration.seconds(10), (ActionEvent event) -> {
-            System.out.println("time’s up");
-            stage2.show();
-            stage2.setAlwaysOnTop(true);
-            //stage1.requestFocus();
-            myBtn.requestFocus();
-       }, new KeyValue(xx, 10)));
-        Timeline x1 = new Timeline(new KeyFrame(Duration.seconds(15), (ActionEvent event) -> {
-            myTA.setText("yes updating");
-        }, new KeyValue(xx2, 10)));
-        x.playFromStart();
-        x1.play();
-      
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
-
 }
+
