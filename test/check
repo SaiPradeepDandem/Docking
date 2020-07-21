@@ -1,1 +1,46 @@
-MCwCFHAyJak7kioJdCHbkw0OY+LHHudlAhRhqyr2Ubnm3swLE4uIFjVhvx9WbA==
+private void checkFailedServicesAreaFlashing(final boolean flashingExpected, final int seconds) {
+        final ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
+        final long samplingDelay = 100;
+        final int nbTasks = (int) (TimeUnit.SECONDS.toMillis(seconds) / samplingDelay);
+
+        final CopyOnWriteArrayList<String> lastStyles = new CopyOnWriteArrayList<>();
+        final AtomicBoolean first = new AtomicBoolean(true);
+        final AtomicInteger nbStyleChanges = new AtomicInteger(0);
+
+        final List<Future<?>> futures = List.range(0, nbTasks).map(i -> ses.schedule(() -> {
+            final ObservableList<String> styles =
+                    nodes().filter(Services.FAILED_SERVICES_PANEL).unique().inspect(Node::getStyleClass);
+            final boolean isFirst = first.getAndSet(false);
+            if (!isFirst
+                && lastStyles.contains(Services.FAILED_SERVICES_AREA_STYLECLASS) != styles
+                    .contains(Services.FAILED_SERVICES_AREA_STYLECLASS)) {
+                nbStyleChanges.incrementAndGet();
+            }
+            lastStyles.clear();
+            lastStyles.addAll(styles);
+        }, i * samplingDelay, TimeUnit.MILLISECONDS));
+
+        try {
+            for (final Future<?> f : futures) {
+                f.get();
+            }
+
+            if (flashingExpected) {
+                assertTrue("Expected at least 3 style changes but was " + nbStyleChanges.get(),
+                        nbStyleChanges.get() >= 3);
+                assertTrue("Expected last styles to contain "
+                    + Services.FAILED_SERVICES_AREA_STYLECLASS
+                    + " but was "
+                    + lastStyles, lastStyles.contains(Services.FAILED_SERVICES_AREA_STYLECLASS));
+            } else {
+                assertTrue("Expected 0 style changes but was " + nbStyleChanges.get(), nbStyleChanges.get() == 0);
+                assertTrue("Expected last styles to not contain "
+                    + Services.FAILED_SERVICES_AREA_STYLECLASS
+                    + " but was "
+                    + lastStyles, !lastStyles.contains(Services.FAILED_SERVICES_AREA_STYLECLASS));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            fail(e.getMessage());
+        }
+        ses.shutdownNow();
+    }
